@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual envs
+.venv/
+venv/
+env/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE / editors
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Secrets
+*.pem
+*.key
+.env.*
+!.env.example
+
+# Data & model artifacts (keep repo lean; use DVC/cloud storage for large files)
+data/
+datasets/
+*.edf
+*.fif
+*.set
+*.mat
+models/
+*.pkl
+*.joblib
+
+# Logs
+logs/
+*.log
+
+# OS temp
+*.tmp
+
+# Local planning docs
+NeuroBridge_Action_Checklist_AI_Builder_Cup_*.docx
