@@ -1,0 +1,856 @@
+{
+  "model_version": "csp-lda-v1",
+  "generated_utc": "2026-10-14T16:40:21Z",
+  "dataset": "PhysioNet EEG Motor Movement/Imagery (EEGMMIDB) v1.0.0",
+  "subjects": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "runs": {
+    "train_validation": [
+      4,
+      8
+    ],
+    "test": [
+      12
+    ]
+  },
+  "classes": [
+    "left_fist_imagery",
+    "right_fist_imagery"
+  ],
+  "channels": [
+    "FC5",
+    "FC3",
+    "FC1",
+    "FCz",
+    "FC2",
+    "FC4",
+    "FC6",
+    "C5",
+    "C3",
+    "C1",
+    "Cz",
+    "C2",
+    "C4",
+    "C6",
+    "CP5",
+    "CP3",
+    "CP1",
+    "CPz",
+    "CP2",
+    "CP4",
+    "CP6"
+  ],
+  "preprocessing": {
+    "l_freq": 8.0,
+    "h_freq": 30.0,
+    "filter_order": 4,
+    "window_tmin": 0.5,
+    "window_tmax": 2.5
+  },
+  "model": {
+    "csp_components": 4,
+    "csp_reg": "ledoit_wolf"
+  },
+  "seed": 42,
+  "threshold": {
+    "value": 0.75,
+    "selection": "target not reachable on validation; fallback used",
+    "target_accepted_accuracy": 0.8,
+    "min_coverage": 0.25,
+    "grid": [
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.9,
+      0.95
+    ],
+    "fallback_threshold": 0.75
+  },
+  "validation_pooled": {
+    "n_oof_predictions": 1500,
+    "at_threshold": {
+      "threshold": 0.75,
+      "coverage": 0.776,
+      "abstention_rate": 0.22399999999999998,
+      "n_accepted": 1164,
+      "accepted_accuracy": 0.6434707903780069,
+      "accepted_error_rate": 0.35652920962199314
+    },
+    "risk_coverage": [
+      {
+        "threshold": 0.5,
+        "coverage": 1.0,
+        "abstention_rate": 0.0,
+        "n_accepted": 1500,
+        "accepted_accuracy": 0.6126666666666667,
+        "accepted_error_rate": 0.3873333333333333
+      },
+      {
+        "threshold": 0.55,
+        "coverage": 0.9606666666666667,
+        "abstention_rate": 0.03933333333333333,
+        "n_accepted": 1441,
+        "accepted_accuracy": 0.6169326856349757,
+        "accepted_error_rate": 0.3830673143650243
+      },
+      {
+        "threshold": 0.6,
+        "coverage": 0.9246666666666666,
+        "abstention_rate": 0.07533333333333336,
+        "n_accepted": 1387,
+        "accepted_accuracy": 0.6243691420331651,
+        "accepted_error_rate": 0.3756308579668349
+      },
+      {
+        "threshold": 0.65,
+        "coverage": 0.882,
+        "abstention_rate": 0.118,
+        "n_accepted": 1323,
+        "accepted_accuracy": 0.6296296296296297,
+        "accepted_error_rate": 0.37037037037037035
+      },
+      {
+        "threshold": 0.7,
+        "coverage": 0.8313333333333334,
+        "abstention_rate": 0.16866666666666663,
+        "n_accepted": 1247,
+        "accepted_accuracy": 0.6335204490777867,
+        "accepted_error_rate": 0.3664795509222133
+      },
+      {
+        "threshold": 0.75,
+        "coverage": 0.776,
+        "abstention_rate": 0.22399999999999998,
+        "n_accepted": 1164,
+        "accepted_accuracy": 0.6434707903780069,
+        "accepted_error_rate": 0.35652920962199314
+      },
+      {
+        "threshold": 0.8,
+        "coverage": 0.7206666666666667,
+        "abstention_rate": 0.2793333333333333,
+        "n_accepted": 1081,
+        "accepted_accuracy": 0.6493987049028677,
+        "accepted_error_rate": 0.3506012950971323
+      },
+      {
+        "threshold": 0.85,
+        "coverage": 0.672,
+        "abstention_rate": 0.32799999999999996,
+        "n_accepted": 1008,
+        "accepted_accuracy": 0.6617063492063492,
+        "accepted_error_rate": 0.3382936507936508
+      },
+      {
+        "threshold": 0.9,
+        "coverage": 0.606,
+        "abstention_rate": 0.394,
+        "n_accepted": 909,
+        "accepted_accuracy": 0.6765676567656765,
+        "accepted_error_rate": 0.3234323432343234
+      },
+      {
+        "threshold": 0.95,
+        "coverage": 0.5133333333333333,
+        "abstention_rate": 0.4866666666666667,
+        "n_accepted": 770,
+        "accepted_accuracy": 0.712987012987013,
+        "accepted_error_rate": 0.287012987012987
+      }
+    ]
+  },
+  "test_pooled": {
+    "n": 150,
+    "accuracy": 0.6066666666666667,
+    "balanced_accuracy": 0.6069204767834905,
+    "macro_f1": 0.6066491844081959,
+    "confusion_matrix": [
+      [
+        46,
+        31
+      ],
+      [
+        28,
+        45
+      ]
+    ],
+    "per_class": {
+      "left_fist_imagery": {
+        "precision": 0.6216216216216216,
+        "recall": 0.5974025974025974,
+        "f1": 0.609271523178808,
+        "support": 77
+      },
+      "right_fist_imagery": {
+        "precision": 0.5921052631578947,
+        "recall": 0.6164383561643836,
+        "f1": 0.6040268456375839,
+        "support": 73
+      }
+    },
+    "binomial_p_vs_chance": 0.0055607969236124285,
+    "at_threshold": {
+      "threshold": 0.75,
+      "coverage": 0.8666666666666667,
+      "abstention_rate": 0.1333333333333333,
+      "n_accepted": 130,
+      "accepted_accuracy": 0.6,
+      "accepted_error_rate": 0.4
+    },
+    "risk_coverage": [
+      {
+        "threshold": 0.5,
+        "coverage": 1.0,
+        "abstention_rate": 0.0,
+        "n_accepted": 150,
+        "accepted_accuracy": 0.6066666666666667,
+        "accepted_error_rate": 0.3933333333333333
+      },
+      {
+        "threshold": 0.55,
+        "coverage": 0.98,
+        "abstention_rate": 0.020000000000000018,
+        "n_accepted": 147,
+        "accepted_accuracy": 0.6122448979591837,
+        "accepted_error_rate": 0.3877551020408163
+      },
+      {
+        "threshold": 0.6,
+        "coverage": 0.96,
+        "abstention_rate": 0.040000000000000036,
+        "n_accepted": 144,
+        "accepted_accuracy": 0.6111111111111112,
+        "accepted_error_rate": 0.3888888888888889
+      },
+      {
+        "threshold": 0.65,
+        "coverage": 0.9266666666666666,
+        "abstention_rate": 0.07333333333333336,
+        "n_accepted": 139,
+        "accepted_accuracy": 0.6115107913669064,
+        "accepted_error_rate": 0.38848920863309355
+      },
+      {
+        "threshold": 0.7,
+        "coverage": 0.9,
+        "abstention_rate": 0.09999999999999998,
+        "n_accepted": 135,
+        "accepted_accuracy": 0.6074074074074074,
+        "accepted_error_rate": 0.3925925925925926
+      },
+      {
+        "threshold": 0.75,
+        "coverage": 0.8666666666666667,
+        "abstention_rate": 0.1333333333333333,
+        "n_accepted": 130,
+        "accepted_accuracy": 0.6,
+        "accepted_error_rate": 0.4
+      },
+      {
+        "threshold": 0.8,
+        "coverage": 0.82,
+        "abstention_rate": 0.18000000000000005,
+        "n_accepted": 123,
+        "accepted_accuracy": 0.6260162601626016,
+        "accepted_error_rate": 0.37398373983739835
+      },
+      {
+        "threshold": 0.85,
+        "coverage": 0.7533333333333333,
+        "abstention_rate": 0.2466666666666667,
+        "n_accepted": 113,
+        "accepted_accuracy": 0.6371681415929203,
+        "accepted_error_rate": 0.36283185840707965
+      },
+      {
+        "threshold": 0.9,
+        "coverage": 0.6733333333333333,
+        "abstention_rate": 0.32666666666666666,
+        "n_accepted": 101,
+        "accepted_accuracy": 0.6633663366336634,
+        "accepted_error_rate": 0.33663366336633666
+      },
+      {
+        "threshold": 0.95,
+        "coverage": 0.5933333333333334,
+        "abstention_rate": 0.4066666666666666,
+        "n_accepted": 89,
+        "accepted_accuracy": 0.6853932584269663,
+        "accepted_error_rate": 0.3146067415730337
+      }
+    ]
+  },
+  "quality_gate": {
+    "clean_test_trials": 150,
+    "rejected_clean_test_trials": 0
+  },
+  "demo_subject": {
+    "subject": 2,
+    "selection": "highest mean validation balanced accuracy"
+  },
+  "per_subject": [
+    {
+      "subject": 1,
+      "n_train": 30,
+      "n_test": 15,
+      "validation": {
+        "balanced_accuracy_mean": 0.565,
+        "balanced_accuracy_std": 0.19259918079899624,
+        "coverage": 0.7333333333333333,
+        "abstention_rate": 0.2666666666666667,
+        "n_accepted": 110,
+        "accepted_accuracy": 0.5909090909090909,
+        "accepted_error_rate": 0.4090909090909091
+      },
+      "test": {
+        "n": 15,
+        "accuracy": 0.6666666666666666,
+        "balanced_accuracy": 0.6785714285714286,
+        "macro_f1": 0.660633484162896,
+        "confusion_matrix": [
+          [
+            6,
+            1
+          ],
+          [
+            4,
+            4
+          ]
+        ],
+        "per_class": {
+          "left_fist_imagery": {
+            "precision": 0.6,
+            "recall": 0.8571428571428571,
+            "f1": 0.7058823529411765,
+            "support": 7
+          },
+          "right_fist_imagery": {
+            "precision": 0.8,
+            "recall": 0.5,
+            "f1": 0.6153846153846154,
+            "support": 8
+          }
+        },
+        "binomial_p_vs_chance": 0.15087890624999997
+      },
+      "test_at_threshold": {
+        "threshold": 0.75,
+        "coverage": 0.8,
+        "abstention_rate": 0.19999999999999996,
+        "n_accepted": 12,
+        "accepted_accuracy": 0.6666666666666666,
+        "accepted_error_rate": 0.3333333333333333
+      },
+      "quality_gate_rejects_on_clean_test": 0
+    },
+    {
+      "subject": 2,
+      "n_train": 30,
+      "n_test": 15,
+      "validation": {
+        "balanced_accuracy_mean": 0.9466666666666665,
+        "balanced_accuracy_std": 0.09092121131323908,
+        "coverage": 0.9666666666666667,
+        "abstention_rate": 0.033333333333333326,
+        "n_accepted": 145,
+        "accepted_accuracy": 0.9724137931034482,
+        "accepted_error_rate": 0.027586206896551724
+      },
+      "test": {
+        "n": 15,
+        "accuracy": 0.8666666666666667,
+        "balanced_accuracy": 0.8571428571428572,
+        "macro_f1": 0.8611111111111112,
+        "confusion_matrix": [
+          [
+            8,
+            0
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "per_class": {
+          "left_fist_imagery": {
+            "precision": 0.8,
+            "recall": 1.0,
+            "f1": 0.8888888888888888,
+            "support": 8
+          },
+          "right_fist_imagery": {
+            "precision": 1.0,
+            "recall": 0.7142857142857143,
+            "f1": 0.8333333333333334,
+            "support": 7
+          }
+        },
+        "binomial_p_vs_chance": 0.003692626953125
+      },
+      "test_at_threshold": {
+        "threshold": 0.75,
+        "coverage": 0.9333333333333333,
+        "abstention_rate": 0.06666666666666665,
+        "n_accepted": 14,
+        "accepted_accuracy": 0.8571428571428571,
+        "accepted_error_rate": 0.14285714285714285
+      },
+      "quality_gate_rejects_on_clean_test": 0
+    },
+    {
+      "subject": 3,
+      "n_train": 30,
+      "n_test": 15,
+      "validation": {
+        "balanced_accuracy_mean": 0.4133333333333333,
+        "balanced_accuracy_std": 0.15719768163402129,
+        "coverage": 0.6733333333333333,
+        "abstention_rate": 0.32666666666666666,
+        "n_accepted": 101,
+        "accepted_accuracy": 0.4158415841584158,
+        "accepted_error_rate": 0.5841584158415841
+      },
+      "test": {
+        "n": 15,
+        "accuracy": 0.5333333333333333,
+        "balanced_accuracy": 0.5,
+        "macro_f1": 0.34782608695652173,
+        "confusion_matrix": [
+          [
+            8,
+            0
+          ],
+          [
+            7,
+            0
+          ]
+        ],
+        "per_class": {
+          "left_fist_imagery": {
+            "precision": 0.5333333333333333,
+            "recall": 1.0,
+            "f1": 0.6956521739130435,
+            "support": 8
+          },
+          "right_fist_imagery": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 7
+          }
+        },
+        "binomial_p_vs_chance": 0.4999999999999999
+      },
+      "test_at_threshold": {
+        "threshold": 0.75,
+        "coverage": 1.0,
+        "abstention_rate": 0.0,
+        "n_accepted": 15,
+        "accepted_accuracy": 0.5333333333333333,
+        "accepted_error_rate": 0.4666666666666667
+      },
+      "quality_gate_rejects_on_clean_test": 0
+    },
+    {
+      "subject": 4,
+      "n_train": 30,
+      "n_test": 15,
+      "validation": {
+        "balanced_accuracy_mean": 0.5533333333333332,
+        "balanced_accuracy_std": 0.12220201853215572,
+        "coverage": 0.76,
+        "abstention_rate": 0.24,
+        "n_accepted": 114,
+        "accepted_accuracy": 0.5263157894736842,
+        "accepted_error_rate": 0.47368421052631576
+      },
+      "test": {
+        "n": 15,
+        "accuracy": 0.4666666666666667,
+        "balanced_accuracy": 0.49107142857142855,
+        "macro_f1": 0.4,
+        "confusion_matrix": [
+          [
+            1,
+            7
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "per_class": {
+          "left_fist_imagery": {
+            "precision": 0.5,
+            "recall": 0.125,
+            "f1": 0.2,
+            "support": 8
+          },
+          "right_fist_imagery": {
+            "precision": 0.46153846153846156,
+            "recall": 0.8571428571428571,
+            "f1": 0.6,
+            "support": 7
+          }
+        },
+        "binomial_p_vs_chance": 0.696380615234375
+      },
+      "test_at_threshold": {
+        "threshold": 0.75,
+        "coverage": 0.9333333333333333,
+        "abstention_rate": 0.06666666666666665,
+        "n_accepted": 14,
+        "accepted_accuracy": 0.42857142857142855,
+        "accepted_error_rate": 0.5714285714285714
+      },
+      "quality_gate_rejects_on_clean_test": 0
+    },
+    {
+      "subject": 5,
+      "n_train": 30,
+      "n_test": 15,
+      "validation": {
+        "balanced_accuracy_mean": 0.475,
+        "balanced_accuracy_std": 0.1711886548681178,
+        "coverage": 0.7866666666666666,
+        "abstention_rate": 0.21333333333333337,
+        "n_accepted": 118,
+        "accepted_accuracy": 0.4576271186440678,
+        "accepted_error_rate": 0.5423728813559322
+      },
+      "test": {
+        "n": 15,
+        "accuracy": 0.3333333333333333,
+        "balanced_accuracy": 0.33035714285714285,
+        "macro_f1": 0.33035714285714285,
+        "confusion_matrix": [
+          [
+            2,
+            5
+          ],
+          [
+            5,
+            3
+          ]
+        ],
+        "per_class": {
+          "left_fist_imagery": {
+            "precision": 0.2857142857142857,
+            "recall": 0.2857142857142857,
+            "f1": 0.2857142857142857,
+            "support": 7
+          },
+          "right_fist_imagery": {
+            "precision": 0.375,
+            "recall": 0.375,
+            "f1": 0.375,
+            "support": 8
+          }
+        },
+        "binomial_p_vs_chance": 0.940765380859375
+      },
+      "test_at_threshold": {
+        "threshold": 0.75,
+        "coverage": 0.8,
+        "abstention_rate": 0.19999999999999996,
+        "n_accepted": 12,
+        "accepted_accuracy": 0.25,
+        "accepted_error_rate": 0.75
+      },
+      "quality_gate_rejects_on_clean_test": 0
+    },
+    {
+      "subject": 6,
+      "n_train": 30,
+      "n_test": 15,
+      "validation": {
+        "balanced_accuracy_mean": 0.515,
+        "balanced_accuracy_std": 0.16950909513454826,
+        "coverage": 0.5,
+        "abstention_rate": 0.5,
+        "n_accepted": 75,
+        "accepted_accuracy": 0.56,
+        "accepted_error_rate": 0.44
+      },
+      "test": {
+        "n": 15,
+        "accuracy": 0.4666666666666667,
+        "balanced_accuracy": 0.49107142857142855,
+        "macro_f1": 0.4,
+        "confusion_matrix": [
+          [
+            1,
+            7
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "per_class": {
+          "left_fist_imagery": {
+            "precision": 0.5,
+            "recall": 0.125,
+            "f1": 0.2,
+            "support": 8
+          },
+          "right_fist_imagery": {
+            "precision": 0.46153846153846156,
+            "recall": 0.8571428571428571,
+            "f1": 0.6,
+            "support": 7
+          }
+        },
+        "binomial_p_vs_chance": 0.696380615234375
+      },
+      "test_at_threshold": {
+        "threshold": 0.75,
+        "coverage": 0.6,
+        "abstention_rate": 0.4,
+        "n_accepted": 9,
+        "accepted_accuracy": 0.5555555555555556,
+        "accepted_error_rate": 0.4444444444444444
+      },
+      "quality_gate_rejects_on_clean_test": 0
+    },
+    {
+      "subject": 7,
+      "n_train": 30,
+      "n_test": 15,
+      "validation": {
+        "balanced_accuracy_mean": 0.9249999999999998,
+        "balanced_accuracy_std": 0.0920446751432272,
+        "coverage": 0.9666666666666667,
+        "abstention_rate": 0.033333333333333326,
+        "n_accepted": 145,
+        "accepted_accuracy": 0.9448275862068966,
+        "accepted_error_rate": 0.05517241379310345
+      },
+      "test": {
+        "n": 15,
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "macro_f1": 1.0,
+        "confusion_matrix": [
+          [
+            7,
+            0
+          ],
+          [
+            0,
+            8
+          ]
+        ],
+        "per_class": {
+          "left_fist_imagery": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 7
+          },
+          "right_fist_imagery": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 8
+          }
+        },
+        "binomial_p_vs_chance": 3.0517578125e-05
+      },
+      "test_at_threshold": {
+        "threshold": 0.75,
+        "coverage": 0.9333333333333333,
+        "abstention_rate": 0.06666666666666665,
+        "n_accepted": 14,
+        "accepted_accuracy": 1.0,
+        "accepted_error_rate": 0.0
+      },
+      "quality_gate_rejects_on_clean_test": 0
+    },
+    {
+      "subject": 8,
+      "n_train": 30,
+      "n_test": 15,
+      "validation": {
+        "balanced_accuracy_mean": 0.5783333333333333,
+        "balanced_accuracy_std": 0.20927122220803424,
+        "coverage": 0.78,
+        "abstention_rate": 0.21999999999999997,
+        "n_accepted": 117,
+        "accepted_accuracy": 0.5897435897435898,
+        "accepted_error_rate": 0.41025641025641024
+      },
+      "test": {
+        "n": 15,
+        "accuracy": 0.5333333333333333,
+        "balanced_accuracy": 0.5535714285714286,
+        "macro_f1": 0.49760765550239233,
+        "confusion_matrix": [
+          [
+            2,
+            6
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "per_class": {
+          "left_fist_imagery": {
+            "precision": 0.6666666666666666,
+            "recall": 0.25,
+            "f1": 0.36363636363636365,
+            "support": 8
+          },
+          "right_fist_imagery": {
+            "precision": 0.5,
+            "recall": 0.8571428571428571,
+            "f1": 0.631578947368421,
+            "support": 7
+          }
+        },
+        "binomial_p_vs_chance": 0.4999999999999999
+      },
+      "test_at_threshold": {
+        "threshold": 0.75,
+        "coverage": 0.8666666666666667,
+        "abstention_rate": 0.1333333333333333,
+        "n_accepted": 13,
+        "accepted_accuracy": 0.46153846153846156,
+        "accepted_error_rate": 0.5384615384615384
+      },
+      "quality_gate_rejects_on_clean_test": 0
+    },
+    {
+      "subject": 9,
+      "n_train": 30,
+      "n_test": 15,
+      "validation": {
+        "balanced_accuracy_mean": 0.5133333333333333,
+        "balanced_accuracy_std": 0.16944353369518445,
+        "coverage": 0.7933333333333333,
+        "abstention_rate": 0.20666666666666667,
+        "n_accepted": 119,
+        "accepted_accuracy": 0.5126050420168067,
+        "accepted_error_rate": 0.48739495798319327
+      },
+      "test": {
+        "n": 15,
+        "accuracy": 0.4666666666666667,
+        "balanced_accuracy": 0.4375,
+        "macro_f1": 0.3181818181818182,
+        "confusion_matrix": [
+          [
+            7,
+            1
+          ],
+          [
+            7,
+            0
+          ]
+        ],
+        "per_class": {
+          "left_fist_imagery": {
+            "precision": 0.5,
+            "recall": 0.875,
+            "f1": 0.6363636363636364,
+            "support": 8
+          },
+          "right_fist_imagery": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 7
+          }
+        },
+        "binomial_p_vs_chance": 0.696380615234375
+      },
+      "test_at_threshold": {
+        "threshold": 0.75,
+        "coverage": 0.9333333333333333,
+        "abstention_rate": 0.06666666666666665,
+        "n_accepted": 14,
+        "accepted_accuracy": 0.5,
+        "accepted_error_rate": 0.5
+      },
+      "quality_gate_rejects_on_clean_test": 0
+    },
+    {
+      "subject": 10,
+      "n_train": 30,
+      "n_test": 15,
+      "validation": {
+        "balanced_accuracy_mean": 0.635,
+        "balanced_accuracy_std": 0.20658600576461553,
+        "coverage": 0.8,
+        "abstention_rate": 0.19999999999999996,
+        "n_accepted": 120,
+        "accepted_accuracy": 0.65,
+        "accepted_error_rate": 0.35
+      },
+      "test": {
+        "n": 15,
+        "accuracy": 0.7333333333333333,
+        "balanced_accuracy": 0.75,
+        "macro_f1": 0.7222222222222222,
+        "confusion_matrix": [
+          [
+            4,
+            4
+          ],
+          [
+            0,
+            7
+          ]
+        ],
+        "per_class": {
+          "left_fist_imagery": {
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666,
+            "support": 8
+          },
+          "right_fist_imagery": {
+            "precision": 0.6363636363636364,
+            "recall": 1.0,
+            "f1": 0.7777777777777778,
+            "support": 7
+          }
+        },
+        "binomial_p_vs_chance": 0.05923461914062499
+      },
+      "test_at_threshold": {
+        "threshold": 0.75,
+        "coverage": 0.8666666666666667,
+        "abstention_rate": 0.1333333333333333,
+        "n_accepted": 13,
+        "accepted_accuracy": 0.6923076923076923,
+        "accepted_error_rate": 0.3076923076923077
+      },
+      "quality_gate_rejects_on_clean_test": 0
+    }
+  ],
+  "environment": {
+    "python": "3.14.6",
+    "mne": "1.13.2",
+    "scikit_learn": "1.9.1",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1"
+  },
+  "runtime_seconds": 15.6
+}

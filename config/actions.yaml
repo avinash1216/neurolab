@@ -1,0 +1,58 @@
+# Decoded motor-imagery classes are CONTROL SIGNALS for a scanning menu.
+# They do not encode what the user wants to say; the menu does.
+
+mode: binary_scanning
+
+classes:
+  left_fist_imagery:
+    action: next_option
+    label: "Move to next option"
+    cue: "Imagine squeezing your LEFT hand"
+  right_fist_imagery:
+    action: select_option
+    label: "Select highlighted option"
+    cue: "Imagine squeezing your RIGHT hand"
+
+menu:
+  - id: water
+    label: "Water / drink"
+    icon: "💧"
+    fallback_phrases:
+      - "Could I have some water, please?"
+      - "I'm thirsty."
+      - "A drink would help, thank you."
+  - id: pain
+    label: "Pain / discomfort"
+    icon: "🩹"
+    fallback_phrases:
+      - "I'm in pain."
+      - "Something is uncomfortable."
+      - "Please check on me."
+  - id: reposition
+    label: "Change position"
+    icon: "🛏️"
+    fallback_phrases:
+      - "Could you help me change position?"
+      - "I'd like to sit up."
+      - "Please adjust my pillow."
+  - id: call_caregiver
+    label: "Call caregiver"
+    icon: "🔔"
+    fallback_phrases:
+      - "Please call my caregiver."
+      - "I need help, please."
+      - "Can someone come here?"
+  - id: yes_no
+    label: "Yes / No"
+    icon: "✅"
+    fallback_phrases:
+      - "Yes."
+      - "No."
+      - "I'm not sure."
+  - id: feelings
+    label: "How I feel"
+    icon: "💬"
+    fallback_phrases:
+      - "I'm feeling okay."
+      - "I'm tired."
+      - "Thank you."

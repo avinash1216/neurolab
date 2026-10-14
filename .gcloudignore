@@ -1,0 +1,10 @@
+# Without this file gcloud falls back to .gitignore, which would drop artifacts/*.joblib.
+.venv/
+data/
+tests/
+__pycache__/
+*.pyc
+.env
+.env.*
+*.docx
+logs_download.txt

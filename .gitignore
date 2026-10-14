@@ -39,10 +39,17 @@ datasets/
 models/
 *.pkl
 *.joblib
+# Exception: the small trained demo models + held-out demo trials are needed by the
+# Dockerfile / Cloud Run image (~3 MB total). Regenerate with scripts/train.py.
+!artifacts/
+!artifacts/models/
+!artifacts/models/*.joblib
+*.part
 
 # Logs
 logs/
 *.log
+logs_download.txt
 
 # OS temp
 *.tmp

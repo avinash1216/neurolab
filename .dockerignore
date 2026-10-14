@@ -1,0 +1,10 @@
+.venv
+data
+tests
+scripts
+__pycache__
+*.pyc
+.env
+.env.*
+*.docx
+logs_download.txt

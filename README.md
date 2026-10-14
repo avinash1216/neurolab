@@ -59,10 +59,7 @@ Working plan — four-day execution window:
 
 ## Setup
 
-> _Setup instructions will be added as the project takes shape._
-
 ```bash
-# Planned
 python -m venv .venv
 # Windows
 .venv\Scripts\activate
@@ -74,7 +71,39 @@ pip install -r requirements.txt
 
 ## Usage
 
-> _Usage instructions will be added once the Streamlit app exists._
+```bash
+# 1. Download the EEGMMIDB subset (subjects/runs from config/experiment.yaml).
+#    Parallel + resumable; PhysioNet can be slow, just re-run if interrupted.
+python scripts/download_data.py
+
+# 2. Train, validate, choose the abstention threshold, evaluate once on the held-out run.
+#    Writes artifacts/ (models, demo trials, metrics.json) and reports/ (figures, results.md).
+python scripts/train.py
+
+# 3. Run the app (optionally set GEMINI_API_KEY first; without it, default phrases are used).
+streamlit run app/streamlit_app.py
+
+# Tests
+python -m pytest -q tests
+```
+
+### Project layout
+
+| Path | Purpose |
+|---|---|
+| `config/experiment.yaml` | Dataset subset, channels, split, preprocessing, model, threshold rule, quality gate |
+| `config/actions.yaml` | Class → interface action mapping and the scanning menu (with fallback phrases) |
+| `src/data.py` | EDF loading, channel standardisation, epoching |
+| `src/preprocessing.py` | Band-pass + decision-window crop (scikit-learn transformer) |
+| `src/model.py` | CSP + LDA pipeline |
+| `src/quality.py` | Signal-quality gate and labelled synthetic corruptions for the demo |
+| `src/evaluate.py` | Metrics, risk–coverage, threshold selection, plots |
+| `src/decoder.py` | Runtime decision: `POOR_SIGNAL` / `LOW_CONFIDENCE` / `CANDIDATE` |
+| `src/gemini_client.py` | Phrase suggestions with timeout and static fallback |
+| `src/logging_utils.py` | Structured JSON logs (no raw EEG) |
+| `scripts/` | `download_data.py`, `train.py` |
+| `app/streamlit_app.py` | UI |
+| `reports/results.md` | Generated results — the only source for reported numbers |
 
 ## Evaluation
 
