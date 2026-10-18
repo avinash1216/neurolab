@@ -3,6 +3,8 @@ data
 tests
 scripts
 __pycache__
+.pytest_cache
+.git
 *.pyc
 .env
 .env.*

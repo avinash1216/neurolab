@@ -87,6 +87,15 @@ streamlit run app/streamlit_app.py
 python -m pytest -q tests
 ```
 
+### Deploy to Cloud Run
+
+See [DEPLOY.md](DEPLOY.md). In short, from a machine on a normal network:
+
+```bash
+gcloud auth login
+bash scripts/deploy_cloud_run.sh          # or scripts\deploy_cloud_run.ps1 on Windows
+```
+
 ### Project layout
 
 | Path | Purpose |

@@ -3,8 +3,14 @@
 data/
 tests/
 __pycache__/
+.pytest_cache/
 *.pyc
 .env
 .env.*
 *.docx
 logs_download.txt
+.git/
+.gitignore
+scripts/
+*.md
+!reports/results.md
