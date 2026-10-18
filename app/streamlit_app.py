@@ -261,7 +261,7 @@ with st.sidebar:
     st.caption(f"Model `{dec.model_version}` · selected on validation data only. "
                f"Session `{ss.session_id}`")
     st.metric("Gemini", "connected" if gemini_available() else "not configured")
-    if st.button("Reset session", use_container_width=True):
+    if st.button("Reset session", width="stretch"):
         reset_flow(keep_highlight=False)
         ss.history = []
         st.rerun()
@@ -291,11 +291,11 @@ with tab_comm:
             c1, c2, c3 = st.columns(3)
             cue_l = ACTIONS["classes"][CLASS_NAMES[0]]["label"]
             cue_r = ACTIONS["classes"][CLASS_NAMES[1]]["label"]
-            if c1.button(f"◀ Replay a LEFT-hand trial\n({cue_l})", use_container_width=True):
+            if c1.button(f"◀ Replay a LEFT-hand trial\n({cue_l})", width="stretch"):
                 run_decode(subject, CLASS_NAMES[0], corruption)
-            if c2.button(f"Replay a RIGHT-hand trial ▶\n({cue_r})", use_container_width=True):
+            if c2.button(f"Replay a RIGHT-hand trial ▶\n({cue_r})", width="stretch"):
                 run_decode(subject, CLASS_NAMES[1], corruption)
-            if c3.button("🎲 Random trial", use_container_width=True):
+            if c3.button("🎲 Random trial", width="stretch"):
                 run_decode(subject, None, corruption)
 
         last = ss.last
@@ -305,7 +305,7 @@ with tab_comm:
                 f"Recorded + SYNTHETIC {CORRUPTIONS[last['corruption']].lower()}"
             st.plotly_chart(signal_figure(last["epoch"],
                             f"{src} · S{last['subject']:03d} run {last['run']} trial {last['trial'] + 1}"),
-                            use_container_width=True)
+                            width="stretch")
             true_lbl = last["true"].replace("_", " ")
 
             if d.state == DecisionState.POOR_SIGNAL:
@@ -318,13 +318,13 @@ with tab_comm:
                 st.markdown(f'<div class="nb-state nb-neutral">⏸ Neutral — model score {d.score:.2f} '
                             f'is below the threshold {d.threshold:.2f}. No action taken.</div>',
                             unsafe_allow_html=True)
-                st.plotly_chart(score_bar(d), use_container_width=True)
+                st.plotly_chart(score_bar(d), width="stretch")
             else:
                 act = ACTIONS["classes"][d.predicted_class]
                 st.markdown(f'<div class="nb-state nb-candidate">Proposed action: <b>{act["label"]}</b>'
                             f'<br><small>from {d.predicted_class.replace("_", " ")} · model score '
                             f'{d.score:.2f} ≥ {d.threshold:.2f}</small></div>', unsafe_allow_html=True)
-                st.plotly_chart(score_bar(d), use_container_width=True)
+                st.plotly_chart(score_bar(d), width="stretch")
 
             match = "" if d.predicted_class is None else (
                 " ✅ prediction matches" if d.predicted_class == last["true"] else " ❌ prediction is wrong")
@@ -332,10 +332,10 @@ with tab_comm:
 
             if ss.stage == "candidate":
                 b1, b2 = st.columns(2)
-                b1.button("✔ Confirm", type="primary", use_container_width=True, on_click=confirm_action)
-                b2.button("✖ Cancel", use_container_width=True, on_click=cancel_action)
+                b1.button("✔ Confirm", type="primary", width="stretch", on_click=confirm_action)
+                b2.button("✖ Cancel", width="stretch", on_click=cancel_action)
             else:
-                st.button("↻ Retry", use_container_width=True, on_click=cancel_action)
+                st.button("↻ Retry", width="stretch", on_click=cancel_action)
 
         if ss.stage == "phrases":
             item = ss.selected_item
@@ -345,13 +345,13 @@ with tab_comm:
             ctx = st.text_input("Optional context (e.g. who you're talking to)", key="ctx",
                                 max_chars=120)
             g1, g2 = st.columns(2)
-            if g1.button("✨ Suggest phrases", type="primary", use_container_width=True):
+            if g1.button("✨ Suggest phrases", type="primary", width="stretch"):
                 with st.spinner("Asking Gemini..."):
                     res = suggest_phrases(item["label"], item["fallback_phrases"], ctx)
                 ss.phrases = res
                 log_event("phrases", ss.session_id, item=item["id"], source=res.source,
                           n=len(res.phrases), note=res.note)
-            if g2.button("✖ Back to menu", use_container_width=True):
+            if g2.button("✖ Back to menu", width="stretch"):
                 reset_flow()
                 st.rerun()
 
@@ -361,11 +361,11 @@ with tab_comm:
                 else:
                     st.success("Suggestions from Gemini. Pick one, then edit if needed.")
                 for k, p in enumerate(ss.phrases.phrases):
-                    if st.button(p, key=f"phrase_{k}", use_container_width=True):
+                    if st.button(p, key=f"phrase_{k}", width="stretch"):
                         ss.final_message = p
                 ss.final_message = st.text_area("Your message (editable)", value=ss.final_message,
                                                 max_chars=200)
-                if st.button("💬 Use this message", type="primary", use_container_width=True,
+                if st.button("💬 Use this message", type="primary", width="stretch",
                              disabled=not ss.final_message.strip()):
                     ss.stage = "message"
                     log_event("message_selected", ss.session_id, item=item["id"],
@@ -378,10 +378,10 @@ with tab_comm:
                         unsafe_allow_html=True)
             st.write("")
             m1, m2 = st.columns(2)
-            if m1.button("🔊 Speak", type="primary", use_container_width=True):
+            if m1.button("🔊 Speak", type="primary", width="stretch"):
                 speak(ss.final_message)
                 log_event("speak", ss.session_id)
-            if m2.button("New message", use_container_width=True):
+            if m2.button("New message", width="stretch"):
                 reset_flow(keep_highlight=False)
                 st.rerun()
 
@@ -422,7 +422,7 @@ with tab_results:
             "Acc when acting": None if at["n_accepted"] == 0 else round(at["accepted_accuracy"], 2),
             "p vs chance": float(f"{r['test']['binomial_p_vs_chance']:.2g}"),
         })
-    st.dataframe(rows, use_container_width=True, hide_index=True)
+    st.dataframe(rows, width="stretch", hide_index=True)
 
     figs = [("per_subject_balanced_accuracy.png", "Per-subject balanced accuracy"),
             ("risk_coverage.png", "Risk-coverage: acting less often, more accurately"),
@@ -433,7 +433,7 @@ with tab_results:
         cols = st.columns(2)
         for col, (f, cap) in zip(cols, figs[i:i + 2]):
             if (REP / f).exists():
-                col.image(str(REP / f), caption=cap, use_container_width=True)
+                col.image(str(REP / f), caption=cap, width="stretch")
 
 # ---------------------------------------------------------------- about
 with tab_about:

@@ -65,7 +65,7 @@ def test_risk_coverage_and_threshold():
 
 
 def test_gemini_fallback_without_key(monkeypatch):
-    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
-    monkeypatch.delenv("GOOGLE_API_KEY", raising=False)
+    for var in ("GEMINI_API_KEY", "GOOGLE_API_KEY", "GOOGLE_CLOUD_PROJECT"):
+        monkeypatch.delenv(var, raising=False)
     res = suggest_phrases("Water", ["A", "B"])
     assert res.source == "fallback" and res.phrases == ["A", "B"]

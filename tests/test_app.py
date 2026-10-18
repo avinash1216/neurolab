@@ -37,8 +37,8 @@ def test_corrupted_trial_is_neutral(corruption):
 
 
 def test_select_to_phrases_with_fallback(monkeypatch):
-    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
-    monkeypatch.delenv("GOOGLE_API_KEY", raising=False)
+    for var in ("GEMINI_API_KEY", "GOOGLE_API_KEY", "GOOGLE_CLOUD_PROJECT"):
+        monkeypatch.delenv(var, raising=False)
     at = AppTest.from_file(APP, default_timeout=60).run()
     # Drive the state machine directly: a confirmed "select" lands on the phrases stage.
     at.session_state.stage = "phrases"
