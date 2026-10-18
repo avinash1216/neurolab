@@ -1,0 +1,65 @@
+# NeuroBridge Day-1 experiment definition. Every number reported in
+# reports/results.md is produced from this file by scripts/train.py.
+
+seed: 42
+model_version: "csp-lda-v1"
+
+data:
+  dataset: "PhysioNet EEG Motor Movement/Imagery (EEGMMIDB) v1.0.0"
+  data_dir: "data"
+  subjects: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  # Runs 4, 8, 12 = motor IMAGERY of opening/closing the left or right fist.
+  runs: [4, 8, 12]
+  # Annotation code -> class name (T0 = rest is not used in v1).
+  classes:
+    T1: "left_fist_imagery"
+    T2: "right_fist_imagery"
+  # Sensorimotor channels over the motor cortex (10-10 names after eegbci.standardize).
+  channels: [FC5, FC3, FC1, FCz, FC2, FC4, FC6,
+             C5, C3, C1, Cz, C2, C4, C6,
+             CP5, CP3, CP1, CPz, CP2, CP4, CP6]
+  epoch_tmin: -1.0   # seconds relative to cue onset
+  epoch_tmax: 4.0
+
+split:
+  # Split by recording run, never by random windows, so no trial appears in two sets.
+  train_runs: [4, 8]   # model fitting + cross-validation (validation)
+  test_runs: [12]      # held-out; used once for final reporting
+  cv_folds: 5
+  cv_repeats: 5
+
+preprocessing:
+  l_freq: 8.0          # mu + beta band
+  h_freq: 30.0
+  filter_order: 4      # Butterworth, zero-phase (sosfiltfilt), applied per epoch
+  window_tmin: 0.5     # classification window after cue
+  window_tmax: 2.5
+
+model:
+  csp_components: 4
+  csp_reg: "ledoit_wolf"
+
+abstention:
+  # Threshold on the top-class model score, chosen on pooled VALIDATION
+  # (out-of-fold) predictions. Smallest threshold that reaches the target
+  # accuracy on accepted trials while keeping at least min_coverage.
+  target_accepted_accuracy: 0.80
+  min_coverage: 0.25
+  grid: [0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95]
+  fallback_threshold: 0.75
+
+quality:
+  # Applied within the decision window on the model channels (microvolts).
+  # Peak-to-peak is measured after a 1-40 Hz filter; EEGMMIDB clean trials sit
+  # around 150-270 µV, so 600 µV flags only gross artifacts.
+  max_peak_to_peak_uv: 600.0
+  min_channel_std_uv: 0.5
+  # Raw power 55-65 Hz / power 1-40 Hz. Several EEGMMIDB recordings carry steady
+  # mains noise (clean-trial ratio up to ~10) that the 8-30 Hz band-pass removes,
+  # so only extreme interference (amplifier-saturation risk) is rejected.
+  max_line_noise_ratio: 25.0
+  max_bad_channels: 1         # tolerate one noisy channel; reject at two or more
+
+paths:
+  artifacts_dir: "artifacts"
+  reports_dir: "reports"
