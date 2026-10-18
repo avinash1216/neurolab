@@ -185,7 +185,8 @@ def signal_figure(epoch: np.ndarray, title: str) -> go.Figure:
     fig.add_vrect(x0=p["window_tmin"], x1=p["window_tmax"], fillcolor="#fde68a", opacity=0.35,
                   line_width=0, annotation_text="decision window", annotation_position="top left")
     fig.add_vline(x=0, line_dash="dash", line_color="#111827", annotation_text="cue")
-    fig.update_layout(title=title, height=300, margin={"l": 10, "r": 10, "t": 40, "b": 30},
+    fig.update_layout(title={"text": title, "font": {"size": 14}}, height=320,
+                      margin={"l": 10, "r": 10, "t": 60, "b": 30},
                       xaxis_title="time from cue (s)", yaxis={"showticklabels": False},
                       legend={"orientation": "h", "y": -0.25}, template="plotly_white")
     fig.update_yaxes(range=[-offset - spacing, spacing])
@@ -291,21 +292,26 @@ with tab_comm:
             c1, c2, c3 = st.columns(3)
             cue_l = ACTIONS["classes"][CLASS_NAMES[0]]["label"]
             cue_r = ACTIONS["classes"][CLASS_NAMES[1]]["label"]
-            if c1.button(f"◀ Replay a LEFT-hand trial\n({cue_l})", width="stretch"):
+            if c1.button("◀ Left hand", width="stretch",
+                         help=f"Replay a recorded LEFT-hand imagery trial (maps to: {cue_l})"):
                 run_decode(subject, CLASS_NAMES[0], corruption)
-            if c2.button(f"Replay a RIGHT-hand trial ▶\n({cue_r})", width="stretch"):
+            if c2.button("Right hand ▶", width="stretch",
+                         help=f"Replay a recorded RIGHT-hand imagery trial (maps to: {cue_r})"):
                 run_decode(subject, CLASS_NAMES[1], corruption)
-            if c3.button("🎲 Random trial", width="stretch"):
+            if c3.button("🎲 Random", width="stretch",
+                         help="Replay a random recorded trial (left or right)"):
                 run_decode(subject, None, corruption)
+            st.caption(f"◀ Left = {cue_l.lower()} · Right ▶ = {cue_r.lower()}")
 
         last = ss.last
         if last and ss.stage in ("candidate", "neutral"):
             d = last["decision"]
-            src = "Recorded" if not last["corruption"] else \
-                f"Recorded + SYNTHETIC {CORRUPTIONS[last['corruption']].lower()}"
-            st.plotly_chart(signal_figure(last["epoch"],
-                            f"{src} · S{last['subject']:03d} run {last['run']} trial {last['trial'] + 1}"),
-                            width="stretch")
+            src = "Recorded trial" if not last["corruption"] else "Recorded + SYNTHETIC noise"
+            title = (f"{src} · S{last['subject']:03d} run {last['run']} trial {last['trial'] + 1}")
+            if last["corruption"]:
+                title += (f"<br><span style='font-size:12px;color:#b45309'>"
+                          f"{html.escape(CORRUPTIONS[last['corruption']])}</span>")
+            st.plotly_chart(signal_figure(last["epoch"], title), width="stretch")
             true_lbl = last["true"].replace("_", " ")
 
             if d.state == DecisionState.POOR_SIGNAL:

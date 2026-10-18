@@ -21,7 +21,7 @@ def test_app_loads_and_decodes():
     assert not at.exception
     assert any("RECORDED EEG PLAYBACK" in m.value for m in at.markdown)
 
-    _button(at, "◀ Replay a LEFT").click().run()
+    _button(at, "◀ Left hand").click().run()
     assert not at.exception
     assert at.session_state.stage in ("candidate", "neutral")
 
